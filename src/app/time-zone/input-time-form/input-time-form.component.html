@@ -1,61 +1,36 @@
-<div class="container-fluid" >
-<form #form="ngForm">
-  <!-- <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div> -->
-  <ngb-timepicker [(ngModel)]="time1" name="myTime1" id="myTime1"></ngb-timepicker>
-  <input [(ngModel)]="time.hour" name="myHour" id="myHour" />
-  <input [(ngModel)]="time.minute" name="myMinute" id="myMinute" />
-  <hr>
-  <pre>Selected time: {{time | json}}</pre>
-  <pre>Selected time1: {{time1 | json}}</pre>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div id="time-form" class="container-fluid" >
+  <form #timezoneForm="ngForm" novalidate (ngSubmit)="onSubmit($event)">
+    <div class="form-group">
+      <label for="fromTimezone" class="col-3">From Timezone:</label>
+      <select class="form-control col-6 inline" name="fromTimezone" id="fromTimezone"
+        [(ngModel)]="fromTimezone" required>
+         <option *ngFor="let tz of fromTimezones" [ngValue]="tz">{{generateUtcString(tz)}} {{tz.utc}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="myTime" class="col-3">From Time: </label>
+      <ngb-timepicker class="inline" [(ngModel)]="time" name="myTime" id="myTime" required #myTime="ngModel"></ngb-timepicker>
+      <div class="col-12 text-danger" [hidden]="myTime.valid || myTime.pristine">
+        From Time is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="toTimezone" class="col-3">To Timezone:</label>
+      <select class="form-control col-6 inline" name="toTimezone" id="toTimezone"
+        [(ngModel)]="toTimezone" required>
+         <option *ngFor="let tz of toTimezones" [ngValue]="tz">{{tz.offset}}{{tz.utc}}</option>
+      </select>
+    </div>
+    <hr>
+    <button type="submit" class="btn btn-primary" [disabled]="timezoneForm.form.invalid">Submit</button>
 
-<ngb-accordion [closeOthers]="true" activeIds="static-1">
-  <ngb-panel id="static-1" title="Simple">
-    <ng-template ngbPanelContent>
-      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
-      aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-      sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
-      craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-      occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-      labore sustainable VHS.
-    </ng-template>
-  </ngb-panel>
-  <ngb-panel id="static-2">
-    <ng-template ngbPanelTitle>
-      <span>&#9733; <b>Fancy</b> title &#9733;</span>
-    </ng-template>
-    <ng-template ngbPanelContent>
-      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
-      aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-      sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
-      craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-      occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-      labore sustainable VHS.
-    </ng-template>
-  </ngb-panel>
-  <ngb-panel id="static-3" title="Disabled" [disabled]="true">
-    <ng-template ngbPanelContent>
-      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
-      aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-      sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
-      craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-      occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-      labore sustainable VHS.
-    </ng-template>
-  </ngb-panel>
-</ngb-accordion>
+    <pre>Selected time: {{time | json}}</pre>
+    <pre>Selected from timezone: {{fromTimezone | json}}</pre>
+    <pre>Selected to timezone: {{toTimezone | json}}</pre>
+  </form>
 
+  <div class="row">
+    <label for="myTime" class="col-3">To Time: </label>
+    <p class="col-9">sdfsdfds</p>
+  </div>
 </div>
