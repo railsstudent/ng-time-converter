@@ -40,7 +40,16 @@ export class InputTimeFormComponent implements OnInit {
 
         this.fromTimezones = cloneDeep(sortedUTCs);
         this.toTimezones = cloneDeep(sortedUTCs);
-        this.fromTimezone = this.fromTimezones[0];
+
+        const currentTimezoneName = momentTimezone.tz.guess();
+        const currentTimezone = this.fromTimezones.find(
+          tz => tz.utc === currentTimezoneName
+        );
+        if (currentTimezone) {
+          this.fromTimezone = currentTimezone;
+        } else {
+          this.fromTimezone = this.fromTimezones[0];
+        }
         this.toTimezone = this.toTimezones[0];
       });
   }
