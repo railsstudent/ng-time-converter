@@ -16,4 +16,5 @@ const concat = require("concat");
   );
   await fs.copy("./dist/ng-time-converter/assets/", "elements/assets/");
   await fs.copyFile("./src/demo.html", "elements/index.html");
+  await fs.copyFile("CNAME", "elements/CNAME");
 })();
