@@ -5,4 +5,11 @@ $icon-font-path: "../../../../node_modules/bootstrap-sass/assets/fonts/bootstrap
   .inline {
     display: inline-block;
   }
+
+  > .toTime {
+    border: 1px solid #9a9a9a;
+    padding-top: 10px;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }

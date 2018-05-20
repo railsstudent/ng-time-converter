@@ -13,10 +13,11 @@ import * as momentTimezone from "moment-timezone";
 })
 export class InputTimeFormComponent implements OnInit {
   time = { hour: 0, minute: 0 };
-  fromTimezones: UtcInfo[];
-  toTimezones: UtcInfo[];
-  fromTimezone: UtcInfo;
-  toTimezone: UtcInfo;
+  fromTimeZones: UtcInfo[];
+  toTimeZones: UtcInfo[];
+  fromTimeZone: UtcInfo;
+  toTimeZone: UtcInfo;
+  strTotime: string = "";
 
   constructor(private http: HttpClient) {
     const now = moment();
@@ -24,8 +25,8 @@ export class InputTimeFormComponent implements OnInit {
       hour: now.hour(),
       minute: now.minute()
     };
-    this.fromTimezone = null;
-    this.toTimezone = null;
+    this.fromTimeZone = null;
+    this.toTimeZone = null;
   }
 
   ngOnInit() {
@@ -38,25 +39,46 @@ export class InputTimeFormComponent implements OnInit {
         const sortedUTCs = sortBy(flatten(utcMappings), "offset");
         console.log(sortedUTCs);
 
-        this.fromTimezones = cloneDeep(sortedUTCs);
-        this.toTimezones = cloneDeep(sortedUTCs);
+        this.fromTimeZones = cloneDeep(sortedUTCs);
+        this.toTimeZones = cloneDeep(sortedUTCs);
 
-        const currentTimezoneName = momentTimezone.tz.guess();
-        const currentTimezone = this.fromTimezones.find(
-          tz => tz.utc === currentTimezoneName
+        const timeZoneName = momentTimezone.tz.guess();
+        const currentTimeZone = this.fromTimeZones.find(
+          tz => tz.utc === timeZoneName
         );
-        if (currentTimezone) {
-          this.fromTimezone = currentTimezone;
+        if (currentTimeZone) {
+          this.fromTimeZone = currentTimeZone;
         } else {
-          this.fromTimezone = this.fromTimezones[0];
+          this.fromTimeZone = this.fromTimeZones[0];
         }
-        this.toTimezone = this.toTimezones[0];
+        this.toTimeZone = this.toTimeZones[0];
       });
   }
 
   onSubmit($event) {
     $event.preventDefault();
-    console.log("onsubmit");
+
+    // let now = moment();
+    // now
+    //   .hour(this.time.hour)
+    //   .minute(this.time.minute)
+    //   .second(0);
+    // console.log(now.format("YYYY-MM-DD HH:mm"));
+    // console.log(this.fromTimeZone.utc, this.toTimeZone.utc);
+
+    const tzFromTime = momentTimezone.tz(
+      moment()
+        .hour(this.time.hour)
+        .minute(this.time.minute)
+        .second(0)
+        .format("YYYY-MM-DD HH:mm"),
+      this.fromTimeZone.utc
+    );
+    const tzToTime = tzFromTime.clone().tz(this.toTimeZone.utc);
+    console.log("strFromTime", tzFromTime.format());
+    this.strTotime = `${tzToTime.format("YYYY-MM-DD HH:mm")} (${
+      this.toTimeZone.utc
+    })`;
   }
 
   generateUtcString(utc: UtcInfo) {
