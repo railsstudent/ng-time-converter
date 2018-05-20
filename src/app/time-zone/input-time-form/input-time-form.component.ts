@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { TimezoneInfo, UtcInfo } from "../index";
 import { cloneDeep, flatten, sortBy } from "lodash-es";
+import * as moment from "moment";
+import * as momentTimezone from "moment-timezone";
 
 @Component({
   selector: "custom-time-form",
@@ -17,9 +19,10 @@ export class InputTimeFormComponent implements OnInit {
   toTimezone: UtcInfo;
 
   constructor(private http: HttpClient) {
+    const now = moment();
     this.time = {
-      hour: 13,
-      minute: 30
+      hour: now.hour(),
+      minute: now.minute()
     };
     this.fromTimezone = null;
     this.toTimezone = null;
