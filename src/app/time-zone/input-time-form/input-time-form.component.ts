@@ -6,7 +6,7 @@ import { cloneDeep, flatten, sortBy } from "lodash-es";
 @Component({
   selector: "custom-time-form",
   templateUrl: "./input-time-form.component.html",
-  styleUrls: ["./bootstrap.css", "./input-time-form.component.scss"],
+  styleUrls: ["./input-time-form.component.scss"],
   encapsulation: ViewEncapsulation.Native
 })
 export class InputTimeFormComponent implements OnInit {
