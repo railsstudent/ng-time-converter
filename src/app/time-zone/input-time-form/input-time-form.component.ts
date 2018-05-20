@@ -1,6 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  Output,
+  EventEmitter
+} from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { TimezoneInfo, UtcInfo } from "../index";
+import { TimezoneInfo, UtcInfo, TimeInfo, SubmittedData } from "../index";
 import { cloneDeep, flatten, sortBy } from "lodash-es";
 import * as moment from "moment";
 import * as momentTimezone from "moment-timezone";
@@ -12,12 +18,14 @@ import * as momentTimezone from "moment-timezone";
   encapsulation: ViewEncapsulation.Native
 })
 export class InputTimeFormComponent implements OnInit {
-  time = { hour: 0, minute: 0 };
+  @Output() submitPerformed = new EventEmitter<SubmittedData>();
+
+  time: TimeInfo;
   fromTimeZones: UtcInfo[];
   toTimeZones: UtcInfo[];
   fromTimeZone: UtcInfo;
   toTimeZone: UtcInfo;
-  strTotime: string = "";
+  convertedTime: string = "";
 
   constructor(private http: HttpClient) {
     const now = moment();
@@ -36,7 +44,7 @@ export class InputTimeFormComponent implements OnInit {
         const utcMappings = timezones.map(timezone =>
           timezone.utc.map(utc => ({ utc, offset: timezone.offset }))
         );
-        const sortedUTCs = sortBy(flatten(utcMappings), "offset");
+        const sortedUTCs = sortBy(flatten(utcMappings), ["offset", "utc"]);
         console.log(sortedUTCs);
 
         this.fromTimeZones = cloneDeep(sortedUTCs);
@@ -46,30 +54,31 @@ export class InputTimeFormComponent implements OnInit {
         const currentTimeZone = this.fromTimeZones.find(
           tz => tz.utc === timeZoneName
         );
-        if (currentTimeZone) {
-          this.fromTimeZone = currentTimeZone;
-        } else {
-          this.fromTimeZone = this.fromTimeZones[0];
-        }
+        this.fromTimeZone = currentTimeZone
+          ? currentTimeZone
+          : this.fromTimeZones[0];
         this.toTimeZone = this.toTimeZones[0];
       });
   }
 
   onSubmit($event) {
     $event.preventDefault();
-    const tzFromTime = momentTimezone.tz(
-      moment()
-        .hour(this.time.hour)
-        .minute(this.time.minute)
-        .second(0)
-        .format("YYYY-MM-DD HH:mm"),
-      this.fromTimeZone.utc
-    );
+    const strFromTime = moment()
+      .hour(this.time.hour)
+      .minute(this.time.minute)
+      .second(0)
+      .format("YYYY-MM-DD HH:mm");
+    const tzFromTime = momentTimezone.tz(strFromTime, this.fromTimeZone.utc);
     const tzToTime = tzFromTime.clone().tz(this.toTimeZone.utc);
-    console.log("strFromTime", tzFromTime.format());
-    this.strTotime = `${tzToTime.format("YYYY-MM-DD HH:mm")} (${
+    this.convertedTime = `${tzToTime.format("YYYY-MM-DD HH:mm")} (${
       this.toTimeZone.utc
     })`;
+
+    this.submitPerformed.emit({
+      fromTimeZone: this.fromTimeZone,
+      toTimeZone: this.toTimeZone,
+      convertedTime: this.convertedTime
+    });
   }
 
   generateUtcString(utc: UtcInfo) {
