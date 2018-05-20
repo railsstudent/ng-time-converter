@@ -18,7 +18,7 @@
       <label for="toTimezone" class="col-3">To Timezone:</label>
       <select class="form-control col-6 inline" name="toTimezone" id="toTimezone"
         [(ngModel)]="toTimezone" required>
-         <option *ngFor="let tz of toTimezones" [ngValue]="tz">{{tz.offset}}{{tz.utc}}</option>
+         <option *ngFor="let tz of toTimezones" [ngValue]="tz">{{generateUtcString(tz)}} {{tz.utc}}</option>
       </select>
     </div>
     <hr>

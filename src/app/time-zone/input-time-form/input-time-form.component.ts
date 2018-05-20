@@ -55,6 +55,10 @@ export class InputTimeFormComponent implements OnInit {
         ? "0"
         : "";
     const absOffset = Math.abs(utc.offset);
-    return `(UTC ${sign}${zero}${absOffset}:00)`;
+    const intPart = Math.floor(absOffset);
+    const decimalPart = absOffset - intPart;
+    const minute = decimalPart * 60;
+    const minuteZero = decimalPart < 10 ? "0" : "";
+    return `(UTC ${sign}${zero}${intPart}:${minuteZero}${minute})`;
   }
 }
