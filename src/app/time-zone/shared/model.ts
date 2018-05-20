@@ -11,3 +11,14 @@ export interface UtcInfo {
   utc: string;
   offset: number;
 }
+
+export interface TimeInfo {
+  hour: number;
+  minute: number;
+}
+
+export interface SubmittedData {
+  fromTimeZone: UtcInfo;
+  toTimeZone: UtcInfo;
+  convertedTime: string;
+}
