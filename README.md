@@ -33,8 +33,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## How to deploy custom element to surge.sh hosting
 
 * If not installed surge tool
-  ** nvm use 8
-  ** npm install -g surge
+  * nvm use 8
+  * npm install -g surge
 * cd to elements directory
 * type surge on command line
 * keep default settings and deploy the files to surge.sh hosting
