@@ -57,15 +57,6 @@ export class InputTimeFormComponent implements OnInit {
 
   onSubmit($event) {
     $event.preventDefault();
-
-    // let now = moment();
-    // now
-    //   .hour(this.time.hour)
-    //   .minute(this.time.minute)
-    //   .second(0);
-    // console.log(now.format("YYYY-MM-DD HH:mm"));
-    // console.log(this.fromTimeZone.utc, this.toTimeZone.utc);
-
     const tzFromTime = momentTimezone.tz(
       moment()
         .hour(this.time.hour)
@@ -92,7 +83,7 @@ export class InputTimeFormComponent implements OnInit {
     const intPart = Math.floor(absOffset);
     const decimalPart = absOffset - intPart;
     const minute = decimalPart * 60;
-    const minuteZero = decimalPart < 10 ? "0" : "";
+    const minuteZero = minute < 10 ? "0" : "";
     return `(UTC ${sign}${zero}${intPart}:${minuteZero}${minute})`;
   }
 }
