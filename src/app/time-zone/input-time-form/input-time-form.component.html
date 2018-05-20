@@ -18,19 +18,18 @@
       <label for="toTimezone" class="col-3">To Timezone:</label>
       <select class="form-control col-6 inline" name="toTimezone" id="toTimezone"
         [(ngModel)]="toTimezone" required>
-         <option *ngFor="let tz of toTimezones" [ngValue]="tz">{{tz.offset}}{{tz.utc}}</option>
+         <option *ngFor="let tz of toTimezones" [ngValue]="tz">{{generateUtcString(tz)}} {{tz.utc}}</option>
       </select>
     </div>
     <hr>
     <button type="submit" class="btn btn-primary" [disabled]="timezoneForm.form.invalid">Submit</button>
-
-    <pre>Selected time: {{time | json}}</pre>
-    <pre>Selected from timezone: {{fromTimezone | json}}</pre>
-    <pre>Selected to timezone: {{toTimezone | json}}</pre>
   </form>
-
   <div class="row">
     <label for="myTime" class="col-3">To Time: </label>
     <p class="col-9">sdfsdfds</p>
   </div>
+
+  <pre>Selected time: {{time | json}}</pre>
+  <pre>Selected from timezone: {{fromTimezone | json}}</pre>
+  <pre>Selected to timezone: {{toTimezone | json}}</pre>
 </div>
