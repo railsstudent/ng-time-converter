@@ -3,8 +3,8 @@
     <div class="form-group">
       <label for="fromTimezone" class="col-3">From Timezone:</label>
       <select class="form-control col-6 inline" name="fromTimezone" id="fromTimezone"
-        [(ngModel)]="fromTimezone" required>
-         <option *ngFor="let tz of fromTimezones" [ngValue]="tz">{{generateUtcString(tz)}} {{tz.utc}}</option>
+        [(ngModel)]="fromTimeZone" required>
+         <option *ngFor="let tz of fromTimeZones" [ngValue]="tz">{{generateUtcString(tz)}} {{tz.utc}}</option>
       </select>
     </div>
     <div class="form-group">
@@ -17,19 +17,19 @@
     <div class="form-group">
       <label for="toTimezone" class="col-3">To Timezone:</label>
       <select class="form-control col-6 inline" name="toTimezone" id="toTimezone"
-        [(ngModel)]="toTimezone" required>
-         <option *ngFor="let tz of toTimezones" [ngValue]="tz">{{generateUtcString(tz)}} {{tz.utc}}</option>
+        [(ngModel)]="toTimeZone" required>
+         <option *ngFor="let tz of toTimeZones" [ngValue]="tz">{{generateUtcString(tz)}} {{tz.utc}}</option>
       </select>
     </div>
     <hr>
     <button type="submit" class="btn btn-primary" [disabled]="timezoneForm.form.invalid">Submit</button>
   </form>
-  <div class="row">
+  <br />
+  <div class="row toTime">
     <label for="myTime" class="col-3">To Time: </label>
-    <p class="col-9">sdfsdfds</p>
+    <p id="myTime" name="myTime" class="col-9">{{strTotime}}</p>
   </div>
-
-  <pre>Selected time: {{time | json}}</pre>
-  <pre>Selected from timezone: {{fromTimezone | json}}</pre>
-  <pre>Selected to timezone: {{toTimezone | json}}</pre>
+  <!-- <pre>Selected time: {{time | json}}</pre>
+  <pre>Selected from timezone: {{fromTimeZone | json}}</pre>
+  <pre>Selected to timezone: {{toTimeZone | json}}</pre> -->
 </div>

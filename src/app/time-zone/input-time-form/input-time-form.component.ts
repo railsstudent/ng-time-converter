@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { TimezoneInfo, UtcInfo } from "../index";
 import { cloneDeep, flatten, sortBy } from "lodash-es";
+import * as moment from "moment";
+import * as momentTimezone from "moment-timezone";
 
 @Component({
   selector: "custom-time-form",
@@ -11,18 +13,20 @@ import { cloneDeep, flatten, sortBy } from "lodash-es";
 })
 export class InputTimeFormComponent implements OnInit {
   time = { hour: 0, minute: 0 };
-  fromTimezones: UtcInfo[];
-  toTimezones: UtcInfo[];
-  fromTimezone: UtcInfo;
-  toTimezone: UtcInfo;
+  fromTimeZones: UtcInfo[];
+  toTimeZones: UtcInfo[];
+  fromTimeZone: UtcInfo;
+  toTimeZone: UtcInfo;
+  strTotime: string = "";
 
   constructor(private http: HttpClient) {
+    const now = moment();
     this.time = {
-      hour: 13,
-      minute: 30
+      hour: now.hour(),
+      minute: now.minute()
     };
-    this.fromTimezone = null;
-    this.toTimezone = null;
+    this.fromTimeZone = null;
+    this.toTimeZone = null;
   }
 
   ngOnInit() {
@@ -35,16 +39,37 @@ export class InputTimeFormComponent implements OnInit {
         const sortedUTCs = sortBy(flatten(utcMappings), "offset");
         console.log(sortedUTCs);
 
-        this.fromTimezones = cloneDeep(sortedUTCs);
-        this.toTimezones = cloneDeep(sortedUTCs);
-        this.fromTimezone = this.fromTimezones[0];
-        this.toTimezone = this.toTimezones[0];
+        this.fromTimeZones = cloneDeep(sortedUTCs);
+        this.toTimeZones = cloneDeep(sortedUTCs);
+
+        const timeZoneName = momentTimezone.tz.guess();
+        const currentTimeZone = this.fromTimeZones.find(
+          tz => tz.utc === timeZoneName
+        );
+        if (currentTimeZone) {
+          this.fromTimeZone = currentTimeZone;
+        } else {
+          this.fromTimeZone = this.fromTimeZones[0];
+        }
+        this.toTimeZone = this.toTimeZones[0];
       });
   }
 
   onSubmit($event) {
     $event.preventDefault();
-    console.log("onsubmit");
+    const tzFromTime = momentTimezone.tz(
+      moment()
+        .hour(this.time.hour)
+        .minute(this.time.minute)
+        .second(0)
+        .format("YYYY-MM-DD HH:mm"),
+      this.fromTimeZone.utc
+    );
+    const tzToTime = tzFromTime.clone().tz(this.toTimeZone.utc);
+    console.log("strFromTime", tzFromTime.format());
+    this.strTotime = `${tzToTime.format("YYYY-MM-DD HH:mm")} (${
+      this.toTimeZone.utc
+    })`;
   }
 
   generateUtcString(utc: UtcInfo) {
@@ -58,7 +83,7 @@ export class InputTimeFormComponent implements OnInit {
     const intPart = Math.floor(absOffset);
     const decimalPart = absOffset - intPart;
     const minute = decimalPart * 60;
-    const minuteZero = decimalPart < 10 ? "0" : "";
+    const minuteZero = minute < 10 ? "0" : "";
     return `(UTC ${sign}${zero}${intPart}:${minuteZero}${minute})`;
   }
 }
