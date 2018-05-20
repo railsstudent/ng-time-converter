@@ -8,10 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod": "ng build --prod --output-hashing=none",
-    "concat-elements": "cat dist/ng-time-converter/{runtime,polyfills,scripts,main}.js > dist/ng-time-converter/time-converter.js",
-    "build-elements": "npm run prod && npm run concat-elements && cp src/demo.html dist/ng-time-converter/demo.html",
-    "deploy": "ng build --prod --base-href \"https://railsstudent.github.io/ng-time-converter/\" && ngh --no-silent"
+    "build:elements":
+      "ng build --prod --output-hashing=none && node build-element.js",
+    "deploy":
+      "ng build --prod --base-href \"https://railsstudent.github.io/ng-time-converter/\" && ngh --no-silent"
   },
   "private": true,
   "dependencies": {
