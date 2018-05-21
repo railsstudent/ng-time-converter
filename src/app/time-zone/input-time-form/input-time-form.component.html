@@ -1,22 +1,22 @@
 <div id="time-form" class="container-fluid" >
   <form #timezoneForm="ngForm" novalidate (ngSubmit)="onSubmit($event)">
     <div class="form-group">
-      <label for="fromTimezone" class="col-4">From Timezone:</label>
-      <select class="form-control col-6 inline" name="fromTimezone" id="fromTimezone"
+      <label for="fromTimezone" class="col-12 col-sm-4 col-md-4">From Timezone:</label>
+      <select class="form-control col-12 col-sm-6 col-md-6 inline" name="fromTimezone" id="fromTimezone"
         [(ngModel)]="fromTimeZone" required>
          <option *ngFor="let tz of fromTimeZones" [ngValue]="tz">{{generateUtcString(tz)}} {{tz.utc}}</option>
       </select>
     </div>
     <div class="form-group">
-      <label for="myTime" class="col-4">From Time: </label>
-      <ngb-timepicker class="inline col-6" [(ngModel)]="time" name="myTime" id="myTime" required #myTime="ngModel"></ngb-timepicker>
-      <div class="col-12 text-danger" [hidden]="myTime.valid || myTime.pristine">
+      <label for="myTime" class="col-4 col-sm-4 col-md-4">From Time: </label>
+      <ngb-timepicker class="inline col-6 col-sm-6 col-md-6" [(ngModel)]="time" name="myTime" id="myTime" required #myTime="ngModel"></ngb-timepicker>
+      <div class="col-12 col-sm-12 col-md-12 text-danger" [hidden]="myTime.valid || myTime.pristine">
         From Time is required.
       </div>
     </div>
     <div class="form-group">
-      <label for="toTimezone" class="col-4">To Timezone:</label>
-      <select class="form-control col-6 inline" name="toTimezone" id="toTimezone"
+      <label for="toTimezone" class="col-12 col-sm-4 col-md-4">To Timezone:</label>
+      <select class="form-control col-12 col-sm-6 col-md-6 inline" name="toTimezone" id="toTimezone"
         [(ngModel)]="toTimeZone" required>
          <option *ngFor="let tz of toTimeZones" [ngValue]="tz">{{generateUtcString(tz)}} {{tz.utc}}</option>
       </select>
