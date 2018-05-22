@@ -11,7 +11,9 @@
     "build:elements":
       "ng build --prod --output-hashing=none && node build-element.js",
     "deploy":
-      "ng build --prod --base-href \"https://railsstudent.github.io/ng-time-converter/\" && ngh --no-silent"
+      "ng build --prod --base-href \"https://railsstudent.github.io/ng-time-converter/\" && ngh --no-silent",
+    "stats":
+      "ng build --prod --stats-json && npx webpack-bundle-analyzer dist/ng-time-converter/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -33,7 +35,6 @@
     "document-register-element": "^1.7.2",
     "fs-extra": "^6.0.1",
     "lodash-es": "^4.17.10",
-    "moment": "^2.22.1",
     "moment-timezone": "^0.5.17",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
