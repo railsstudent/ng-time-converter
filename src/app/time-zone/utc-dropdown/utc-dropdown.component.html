@@ -1,0 +1,7 @@
+<ng-container>
+  <label for="fromTimezone" class="col-12 col-sm-4 col-md-4 col-lg-2">{{labelName}}</label>
+  <select class="form-control col-12 col-sm-6 col-md-6 col-lg-8 inline" name="fromTimezone" id="fromTimezone"
+    [ngModel]="timeZone" required (ngModelChange)="timeZoneChanged($event)">
+     <option *ngFor="let tz of timeZones" [ngValue]="tz">{{tz.description}} {{tz.utc}}</option>
+  </select>
+</ng-container>
