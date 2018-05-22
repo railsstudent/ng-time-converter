@@ -1,10 +1,4 @@
 import { InputTimeFormComponent } from "./input-time-form/input-time-form.component";
-import { TimezoneInfo, UtcInfo, TimeInfo, SubmittedData } from "./shared/model";
+import { TimeZoneModule } from "./time-zone.module";
 
-export {
-  InputTimeFormComponent,
-  TimezoneInfo,
-  UtcInfo,
-  TimeInfo,
-  SubmittedData
-};
+export { InputTimeFormComponent, TimeZoneModule };

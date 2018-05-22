@@ -10,6 +10,6 @@ import { UtcDropdownComponent } from "./utc-dropdown/utc-dropdown.component";
   imports: [CommonModule, HttpClientModule, FormsModule, NgbModule],
   declarations: [InputTimeFormComponent, UtcDropdownComponent],
   entryComponents: [InputTimeFormComponent],
-  exports: [InputTimeFormComponent, UtcDropdownComponent]
+  exports: [InputTimeFormComponent]
 })
 export class TimeZoneModule {}
