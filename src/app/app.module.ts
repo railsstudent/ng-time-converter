@@ -6,8 +6,7 @@ import { createCustomElement } from "@angular/elements";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AppComponent } from "./app.component";
-import { TimeZoneModule } from "./time-zone/time-zone.module";
-import { InputTimeFormComponent } from "./time-zone/";
+import { InputTimeFormComponent, TimeZoneModule } from "./time-zone/";
 
 @NgModule({
   declarations: [AppComponent],

@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { map, merge } from "lodash-es";
 
-import { UtcInfo, TimeInfo } from "../index";
+import { UtcInfo, TimeInfo } from "../shared/index";
 
 @Component({
   selector: "utc-dropdown",
@@ -25,10 +25,14 @@ export class UtcDropdownComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log("UtcDropdownComponent", this.labelName);
+    console.log("UtcDropdownComponent timeZones", this.timeZones);
+    console.log("UtcDropdownComponent timeZone", this.timeZone);
+  }
 
   timeZoneChanged($event) {
-    console.log("timeZoneChanged", this.timeZone, $event);
+    console.log("timeZoneChanged", $event);
     this.selectedTimeZone.emit($event);
   }
 }

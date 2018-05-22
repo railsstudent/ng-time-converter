@@ -6,7 +6,12 @@ import {
   EventEmitter
 } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { TimezoneInfo, UtcInfo, TimeInfo, SubmittedData } from "../index";
+import {
+  TimezoneInfo,
+  UtcInfo,
+  TimeInfo,
+  SubmittedData
+} from "../shared/index";
 import { cloneDeep, flatten, sortBy } from "lodash-es";
 import * as moment from "moment";
 import * as momentTimezone from "moment-timezone";
