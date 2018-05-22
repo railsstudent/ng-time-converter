@@ -42,7 +42,11 @@ export class InputTimeFormComponent implements OnInit {
       .get<TimezoneInfo[]>("./assets/timezones.json")
       .subscribe((timezones: TimezoneInfo[]) => {
         const utcMappings = timezones.map(timezone =>
-          timezone.utc.map(utc => ({ utc, offset: timezone.offset }))
+          timezone.utc.map(utc => ({
+            utc,
+            offset: timezone.offset,
+            description: this.generateOffsetString(timezone.offset)
+          }))
         );
         const sortedUTCs = sortBy(flatten(utcMappings), ["offset", "utc"]);
         console.log(sortedUTCs);
@@ -81,17 +85,13 @@ export class InputTimeFormComponent implements OnInit {
     });
   }
 
-  generateUtcString(utc: UtcInfo) {
-    const sign = utc.offset >= 0 ? "+" : "-";
+  generateOffsetString(offset: number) {
+    const sign = offset >= 0 ? "+" : "-";
     const zero =
-      (utc.offset >= 0 && utc.offset < 10) ||
-      (utc.offset >= -9 && utc.offset) < 0
-        ? "0"
-        : "";
-    const absOffset = Math.abs(utc.offset);
+      (offset >= 0 && offset < 10) || (offset >= -9 && offset) < 0 ? "0" : "";
+    const absOffset = Math.abs(offset);
     const intPart = Math.floor(absOffset);
-    const decimalPart = absOffset - intPart;
-    const minute = decimalPart * 60;
+    const minute = (absOffset - intPart) * 60;
     const minuteZero = minute < 10 ? "0" : "";
     return `(UTC ${sign}${zero}${intPart}:${minuteZero}${minute})`;
   }

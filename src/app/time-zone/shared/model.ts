@@ -10,6 +10,7 @@ export interface TimezoneInfo {
 export interface UtcInfo {
   utc: string;
   offset: number;
+  description: string;
 }
 
 export interface TimeInfo {
