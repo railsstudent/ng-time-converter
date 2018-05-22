@@ -1,14 +1,31 @@
 $icon-font-path: "../../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 @import "~bootstrap/scss/bootstrap";
 
+$pad-top: 10px;
+$pad-bottom: 10px;
+
 #time-form {
+  form {
+    padding: $pad-top;
+
+    .utc-container {
+      padding-top: $pad-top;
+      padding-bottom: $pad-bottom;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
   .inline {
     display: inline-block;
   }
 
   > .toTime {
     border: 1px solid #9a9a9a;
-    padding-top: 10px;
+    padding-top: $pad-top;
     margin-left: 0;
     margin-right: 0;
   }
