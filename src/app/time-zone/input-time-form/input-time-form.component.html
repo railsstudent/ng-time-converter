@@ -1,6 +1,7 @@
 <div id="time-form" class="container-fluid" >
   <form class="border" #timezoneForm="ngForm" novalidate (ngSubmit)="onSubmit($event)">
     <div class="form-group border border-primary utc-container">
+      <utc-dropdown></utc-dropdown>
       <label for="fromTimezone" class="col-12 col-sm-4 col-md-4 col-lg-2">From Time Zone:</label>
       <select class="form-control col-12 col-sm-6 col-md-6 col-lg-8 inline" name="fromTimezone" id="fromTimezone"
         [(ngModel)]="fromTimeZone" required>
@@ -15,6 +16,7 @@
       </div>
     </div>
     <div class="form-group border border-primary utc-container">
+      <utc-dropdown></utc-dropdown>
       <label for="toTimezone" class="col-12 col-sm-4 col-md-4 col-lg-2">To Time Zone:</label>
       <select class="form-control col-12 col-sm-6 col-md-6 col-lg-8 inline" name="toTimezone" id="toTimezone"
         [(ngModel)]="toTimeZone" required>
