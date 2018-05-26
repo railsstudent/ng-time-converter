@@ -19,7 +19,7 @@ import { UtcInfo, TimeInfo } from "../shared/index";
 export class UtcDropdownComponent implements OnInit {
 
   @Input() labelName: string;
-  @Output() selectedTimeZone = new EventEmitter<UtcInfo>();
+  @Output() timeZoneChange = new EventEmitter<UtcInfo>();
 
   offsets: number[];
   allTimezones: UtcInfo[];
@@ -32,6 +32,7 @@ export class UtcDropdownComponent implements OnInit {
 
   set timeZone(value: UtcInfo) {
     this.selectedOffset = value;
+    this.timeZoneChange.emit(value);
   }
 
   @Input()
@@ -61,15 +62,7 @@ export class UtcDropdownComponent implements OnInit {
     }
     if (sameOffset) {
       styles['background-color'] = 'rebeccapurple';
-    } /*else {
-      styles['background'] = 'none';
-    }*/
+    }
     return styles;
-  }
-
-  timeZoneChanged($event) {
-    console.log("timeZoneChanged", $event);
-    this.selectedOffset = $event;
-    this.selectedTimeZone.emit($event);
   }
 }
