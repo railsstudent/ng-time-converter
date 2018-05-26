@@ -1,7 +1,19 @@
 <ng-container>
-  <label for="fromTimezone" class="col-12 col-sm-4 col-md-4 col-lg-2">{{labelName}}</label>
-  <select class="form-control col-12 col-sm-6 col-md-6 col-lg-8 inline" name="fromTimezone" id="fromTimezone"
-    [ngModel]="timeZone" required (ngModelChange)="timeZoneChanged($event)">
-     <option *ngFor="let tz of timeZones" [ngValue]="tz">{{tz.description}} {{tz.utc}}</option>
-  </select>
+  <div class="form-group offset-group">
+    <label for="offset" class="col-12 col-sm-3 col-md-3 col-lg-2">Offset:</label>
+    <div class="form-control col-12 col-sm-8 col-md-8 col-lg-9 inline">
+      <div class="offset-container">
+        <div class="offset-item" *ngFor="let offset of offsets" [ngStyle]="setStyles(offset)">
+          {{offset}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group timezone-group">
+    <label for="timezone" class="col-12 col-sm-3 col-md-3 col-lg-2">{{labelName}}</label>
+    <select class="form-control col-12 col-sm-8 col-md-8 col-lg-9 inline" name="timezone" id="timezone"
+      [ngModel]="timeZone" required (ngModelChange)="timeZoneChanged($event)">
+       <option *ngFor="let tz of timeZones" [ngValue]="tz">{{tz.description}} {{tz.utc}}</option>
+    </select>
+  </div>
 </ng-container>

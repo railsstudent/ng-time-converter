@@ -1,0 +1,24 @@
+.offset {
+  &-container {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  &-item {
+    height: 3em;
+    width: 3em;
+    border: 1px solid black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.timezone-group, .offset-group {
+  .form-control {
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+}
