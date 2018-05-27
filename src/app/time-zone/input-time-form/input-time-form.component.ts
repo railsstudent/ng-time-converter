@@ -3,7 +3,8 @@ import {
   OnInit,
   ViewEncapsulation,
   Output,
-  EventEmitter
+  EventEmitter,
+  AfterViewInit
 } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import {
@@ -22,7 +23,7 @@ import * as momentTimezone from "moment-timezone";
   styleUrls: ["./input-time-form.component.scss"],
   encapsulation: ViewEncapsulation.Native
 })
-export class InputTimeFormComponent implements OnInit {
+export class InputTimeFormComponent implements OnInit, AfterViewInit {
   @Output() submitPerformed = new EventEmitter<SubmittedData>();
 
   time: TimeInfo;
@@ -68,6 +69,11 @@ export class InputTimeFormComponent implements OnInit {
           : this.fromTimeZones[0];
         this.toTimeZone = this.toTimeZones[0];
       });
+  }
+
+  ngAfterViewInit() {
+    const element = document.querySelector('div[aria-live]');
+    element.setAttribute('style', 'display:none');
   }
 
   onSubmit($event) {
