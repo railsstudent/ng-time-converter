@@ -6,7 +6,9 @@ import {
   Output,
   EventEmitter
 } from "@angular/core";
-import { map, merge, uniqBy } from "lodash-es";
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { map as lodashMap, merge, uniqBy, get } from "lodash-es";
 
 import { UtcInfo, TimeInfo } from "../shared/index";
 
@@ -43,17 +45,13 @@ export class UtcDropdownComponent implements OnInit {
   set timeZones(values: UtcInfo[]) {
     this.allTimezones = values;
     if (values) {
-      this.offsets = map(uniqBy(values, tz => tz.offset), tz => tz.offset);
+      this.offsets = lodashMap(uniqBy(values, tz => tz.offset), tz => tz.offset);
     }
   }
 
   constructor() {}
 
-  ngOnInit() {
-    console.log("UtcDropdownComponent", this.labelName);
-    console.log("UtcDropdownComponent timeZones", this.timeZones);
-    console.log("UtcDropdownComponent timeZone", this.timeZone);
-  }
+  ngOnInit() {}
 
   setStyles(offset) {
     const sameOffset = this.selectedOffset && this.selectedOffset.offset === offset;
@@ -64,5 +62,32 @@ export class UtcDropdownComponent implements OnInit {
       styles['background-color'] = 'rebeccapurple';
     }
     return styles;
+  }
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      map(term => term && this.filterTimeZones(term))
+    );
+
+  filterTimeZones(term) {
+    if (term.length < 2 || !this.allTimezones) {
+      return [];
+    }
+    return this.allTimezones.filter(tz => tz.utc.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10);
+  }
+
+  utcFormatter = (tz: UtcInfo) => `${tz.description} ${tz.utc}`;
+
+  isValid(): boolean {
+    if (!this.selectedOffset) {
+      return false;
+    }
+    const description = get(this.selectedOffset, 'description', null);
+    const offset = get(this.selectedOffset, 'offset', null);
+    const utc = get(this.selectedOffset, 'utc', null);
+
+    return description != null && offset != null && utc !== '';
   }
 }

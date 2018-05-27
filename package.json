@@ -8,12 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:elements":
-      "ng build --prod --output-hashing=none && node build-element.js",
-    "deploy":
-      "ng build --prod --base-href \"https://railsstudent.github.io/ng-time-converter/\" && ngh --no-silent",
-    "stats":
-      "ng build --prod --stats-json && npx webpack-bundle-analyzer dist/ng-time-converter/stats.json"
+    "build:elements": "ng build --prod --output-hashing=none && node build-element.js",
+    "deploy": "ng build --prod --base-href \"https://railsstudent.github.io/ng-time-converter/\" && ngh --no-silent",
+    "stats": "ng build --prod --stats-json && npx webpack-bundle-analyzer dist/ng-time-converter/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -37,6 +34,7 @@
     "lodash-es": "^4.17.10",
     "moment-timezone": "^0.5.17",
     "rxjs": "^6.0.0",
+    "rxjs-tslint-rules": "^4.3.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
