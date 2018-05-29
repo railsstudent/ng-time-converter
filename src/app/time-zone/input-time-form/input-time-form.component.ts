@@ -4,7 +4,8 @@ import {
   ViewEncapsulation,
   Output,
   EventEmitter,
-  AfterViewInit
+  AfterViewInit,
+  ChangeDetectorRef
 } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import {
@@ -33,7 +34,7 @@ export class InputTimeFormComponent implements OnInit, AfterViewInit {
   toTimeZone: UtcInfo;
   convertedTime: string = "";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private cd: ChangeDetectorRef) {
     const now = moment();
     this.time = {
       hour: now.hour(),

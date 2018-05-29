@@ -75,10 +75,16 @@ export class UtcDropdownComponent implements OnInit {
     if (term.length < 2 || !this.allTimezones) {
       return [];
     }
-    return this.allTimezones.filter(tz => tz.utc.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10);
+    const x = this.allTimezones.filter(tz => tz.utc.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10);
+    console.log(x);
+    return x;
   }
 
-  utcFormatter = (tz: UtcInfo) => `${tz.description} ${tz.utc}`;
+  // utcFormatter = (tz: UtcInfo) => `${tz.description} ${tz.utc}`;
+  utcFormatter(tz: UtcInfo) {
+    console.log('utcformatter', tz);
+    return `${tz.description} ${tz.utc}`;
+  }
 
   isValid(): boolean {
     if (!this.selectedOffset) {
