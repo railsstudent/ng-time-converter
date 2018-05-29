@@ -69,6 +69,7 @@ export class InputTimeFormComponent implements OnInit, AfterViewInit {
           ? currentTimeZone
           : this.fromTimeZones[0];
         this.toTimeZone = this.toTimeZones[0];
+        this.cd.detectChanges();
       });
   }
 
