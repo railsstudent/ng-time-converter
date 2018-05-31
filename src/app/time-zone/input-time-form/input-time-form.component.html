@@ -2,22 +2,22 @@
   <form class="border" #timezoneForm="ngForm" novalidate (ngSubmit)="onSubmit($event)">
     <div class="form-group border border-primary utc-container">
       <utc-dropdown [labelName]="'From Time Zone:'" [timeZones]="fromTimeZones"
-        [timeZone]="fromTimeZone" (selectedTimeZone)="fromTimeZone=$event"></utc-dropdown>
+        [(timeZone)]="fromTimeZone" #fromUTC></utc-dropdown>
     </div>
     <div class="form-group border border-primary">
-      <label for="myTime" class="col-4 col-sm-4 col-md-4 col-lg-2">From Time: </label>
-      <ngb-timepicker class="inline col-4 col-sm-4 col-md-4 col-lg-8" [(ngModel)]="time" name="myTime" id="myTime" required #myTime="ngModel"></ngb-timepicker>
+      <label for="myTime" class="col-12 col-sm-3 col-md-3 col-lg-2">From Time: </label>
+      <ngb-timepicker class="inline col-12 col-sm-8 col-md-8 col-lg-10" [(ngModel)]="time" name="myTime" id="myTime" required #myTime="ngModel"></ngb-timepicker>
       <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-danger" [hidden]="myTime.valid || myTime.pristine">
         From Time is required.
       </div>
     </div>
     <div class="form-group border border-primary utc-container">
       <utc-dropdown [labelName]="'To Time Zone:'" [timeZones]="toTimeZones"
-        [timeZone]="toTimeZone" (selectedTimeZone)="toTimeZone=$event"></utc-dropdown>
+        [(timeZone)]="toTimeZone" #toUTC></utc-dropdown>
     </div>
     <hr>
     <div class="button-container">
-      <button type="submit" class="btn btn-primary" [disabled]="timezoneForm.form.invalid">Submit</button>
+      <button type="submit" class="btn btn-primary" [disabled]="timezoneForm.form.invalid || !fromUTC.isValid() || !toUTC.isValid()">Submit</button>
     </div>
   </form>
   <br />

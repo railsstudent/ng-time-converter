@@ -3,7 +3,9 @@ import {
   OnInit,
   ViewEncapsulation,
   Output,
-  EventEmitter
+  EventEmitter,
+  AfterViewInit,
+  ChangeDetectorRef
 } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import {
@@ -17,12 +19,12 @@ import * as moment from "moment";
 import * as momentTimezone from "moment-timezone";
 
 @Component({
-  selector: "custom-time-form",
+  selector: "time-converter",
   templateUrl: "./input-time-form.component.html",
   styleUrls: ["./input-time-form.component.scss"],
   encapsulation: ViewEncapsulation.Native
 })
-export class InputTimeFormComponent implements OnInit {
+export class InputTimeFormComponent implements OnInit, AfterViewInit {
   @Output() submitPerformed = new EventEmitter<SubmittedData>();
 
   time: TimeInfo;
@@ -32,7 +34,7 @@ export class InputTimeFormComponent implements OnInit {
   toTimeZone: UtcInfo;
   convertedTime: string = "";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private cd: ChangeDetectorRef) {
     const now = moment();
     this.time = {
       hour: now.hour(),
@@ -54,7 +56,7 @@ export class InputTimeFormComponent implements OnInit {
           }))
         );
         const sortedUTCs = sortBy(flatten(utcMappings), ["offset", "utc"]);
-        console.log(sortedUTCs);
+        // console.log(sortedUTCs);
 
         this.fromTimeZones = cloneDeep(sortedUTCs);
         this.toTimeZones = cloneDeep(sortedUTCs);
@@ -67,27 +69,35 @@ export class InputTimeFormComponent implements OnInit {
           ? currentTimeZone
           : this.fromTimeZones[0];
         this.toTimeZone = this.toTimeZones[0];
+        this.cd.detectChanges();
       });
   }
 
-  onSubmit($event) {
-    $event.preventDefault();
-    const strFromTime = moment()
-      .hour(this.time.hour)
-      .minute(this.time.minute)
-      .second(0)
-      .format("YYYY-MM-DD HH:mm");
-    const tzFromTime = momentTimezone.tz(strFromTime, this.fromTimeZone.utc);
-    const tzToTime = tzFromTime.clone().tz(this.toTimeZone.utc);
-    this.convertedTime = `${tzToTime.format("YYYY-MM-DD HH:mm")} (${
-      this.toTimeZone.utc
-    })`;
+  ngAfterViewInit() {
+    const element = document.querySelector("div[aria-live]");
+    element.setAttribute("style", "display:none");
+  }
 
-    this.submitPerformed.emit({
-      fromTimeZone: this.fromTimeZone,
-      toTimeZone: this.toTimeZone,
-      convertedTime: this.convertedTime
-    });
+  onSubmit($event) {
+    if ($event) {
+      $event.preventDefault();
+      const strFromTime = moment()
+        .hour(this.time.hour)
+        .minute(this.time.minute)
+        .second(0)
+        .format("YYYY-MM-DD HH:mm");
+      const tzFromTime = momentTimezone.tz(strFromTime, this.fromTimeZone.utc);
+      const tzToTime = tzFromTime.clone().tz(this.toTimeZone.utc);
+      this.convertedTime = `${tzToTime.format("YYYY-MM-DD HH:mm")} (${
+        this.toTimeZone.utc
+      })`;
+
+      this.submitPerformed.emit({
+        fromTimeZone: this.fromTimeZone,
+        toTimeZone: this.toTimeZone,
+        convertedTime: this.convertedTime
+      });
+    }
   }
 
   generateOffsetString(offset: number) {
