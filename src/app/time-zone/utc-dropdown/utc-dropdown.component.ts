@@ -6,10 +6,9 @@ import {
   Output,
   EventEmitter
 } from "@angular/core";
-import {Observable} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { Observable } from "rxjs";
+import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { map as lodashMap, merge, uniqBy, get } from "lodash-es";
-
 import { UtcInfo, TimeInfo } from "../shared/index";
 
 @Component({
@@ -18,8 +17,7 @@ import { UtcInfo, TimeInfo } from "../shared/index";
   styleUrls: ["./utc-dropdown.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UtcDropdownComponent implements OnInit {
-
+export class UtcDropdownComponent {
   @Input() labelName: string;
   @Output() timeZoneChange = new EventEmitter<UtcInfo>();
 
@@ -45,21 +43,21 @@ export class UtcDropdownComponent implements OnInit {
   set timeZones(values: UtcInfo[]) {
     this.allTimezones = values;
     if (values) {
-      this.offsets = lodashMap(uniqBy(values, tz => tz.offset), tz => tz.offset);
+      this.offsets = lodashMap(
+        uniqBy(values, tz => tz.offset),
+        tz => tz.offset
+      );
     }
   }
 
-  constructor() {}
-
-  ngOnInit() {}
-
   setStyles(offset) {
-    const sameOffset = this.selectedOffset && this.selectedOffset.offset === offset;
+    const sameOffset =
+      this.selectedOffset && this.selectedOffset.offset === offset;
     const styles = {
-      color: sameOffset ? 'white': 'black',
-    }
+      color: sameOffset ? "white" : "black"
+    };
     if (sameOffset) {
-      styles['background-color'] = 'rebeccapurple';
+      styles["background-color"] = "rebeccapurple";
     }
     return styles;
   }
@@ -75,25 +73,22 @@ export class UtcDropdownComponent implements OnInit {
     if (term.length < 2 || !this.allTimezones) {
       return [];
     }
-    const x = this.allTimezones.filter(tz => tz.utc.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10);
-    console.log(x);
+    const x = this.allTimezones
+      .filter(tz => tz.utc.toLowerCase().indexOf(term.toLowerCase()) > -1)
+      .slice(0, 20);
     return x;
   }
 
-  // utcFormatter = (tz: UtcInfo) => `${tz.description} ${tz.utc}`;
-  utcFormatter(tz: UtcInfo) {
-    console.log('utcformatter', tz);
-    return `${tz.description} ${tz.utc}`;
-  }
+  utcFormatter = (tz: UtcInfo) => `${tz.description} ${tz.utc}`;
 
   isValid(): boolean {
     if (!this.selectedOffset) {
       return false;
     }
-    const description = get(this.selectedOffset, 'description', null);
-    const offset = get(this.selectedOffset, 'offset', null);
-    const utc = get(this.selectedOffset, 'utc', null);
+    const description = get(this.selectedOffset, "description", null);
+    const offset = get(this.selectedOffset, "offset", null);
+    const utc = get(this.selectedOffset, "utc", null);
 
-    return description != null && offset != null && utc !== '';
+    return description != null && offset != null && utc !== "";
   }
 }

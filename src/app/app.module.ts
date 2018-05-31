@@ -24,6 +24,7 @@ export class AppModule {
   constructor(private injector: Injector) {}
 
   ngDoBootstrap() {
+    console.log("ngDoBootstrap");
     const timeConverterElement = createCustomElement(InputTimeFormComponent, {
       injector: this.injector
     });

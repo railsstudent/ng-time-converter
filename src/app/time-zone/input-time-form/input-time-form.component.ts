@@ -19,7 +19,7 @@ import * as moment from "moment";
 import * as momentTimezone from "moment-timezone";
 
 @Component({
-  selector: "custom-time-form",
+  selector: "time-converter",
   templateUrl: "./input-time-form.component.html",
   styleUrls: ["./input-time-form.component.scss"],
   encapsulation: ViewEncapsulation.Native
@@ -56,7 +56,7 @@ export class InputTimeFormComponent implements OnInit, AfterViewInit {
           }))
         );
         const sortedUTCs = sortBy(flatten(utcMappings), ["offset", "utc"]);
-        console.log(sortedUTCs);
+        // console.log(sortedUTCs);
 
         this.fromTimeZones = cloneDeep(sortedUTCs);
         this.toTimeZones = cloneDeep(sortedUTCs);
@@ -74,28 +74,30 @@ export class InputTimeFormComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const element = document.querySelector('div[aria-live]');
-    element.setAttribute('style', 'display:none');
+    const element = document.querySelector("div[aria-live]");
+    element.setAttribute("style", "display:none");
   }
 
   onSubmit($event) {
-    $event.preventDefault();
-    const strFromTime = moment()
-      .hour(this.time.hour)
-      .minute(this.time.minute)
-      .second(0)
-      .format("YYYY-MM-DD HH:mm");
-    const tzFromTime = momentTimezone.tz(strFromTime, this.fromTimeZone.utc);
-    const tzToTime = tzFromTime.clone().tz(this.toTimeZone.utc);
-    this.convertedTime = `${tzToTime.format("YYYY-MM-DD HH:mm")} (${
-      this.toTimeZone.utc
-    })`;
+    if ($event) {
+      $event.preventDefault();
+      const strFromTime = moment()
+        .hour(this.time.hour)
+        .minute(this.time.minute)
+        .second(0)
+        .format("YYYY-MM-DD HH:mm");
+      const tzFromTime = momentTimezone.tz(strFromTime, this.fromTimeZone.utc);
+      const tzToTime = tzFromTime.clone().tz(this.toTimeZone.utc);
+      this.convertedTime = `${tzToTime.format("YYYY-MM-DD HH:mm")} (${
+        this.toTimeZone.utc
+      })`;
 
-    this.submitPerformed.emit({
-      fromTimeZone: this.fromTimeZone,
-      toTimeZone: this.toTimeZone,
-      convertedTime: this.convertedTime
-    });
+      this.submitPerformed.emit({
+        fromTimeZone: this.fromTimeZone,
+        toTimeZone: this.toTimeZone,
+        convertedTime: this.convertedTime
+      });
+    }
   }
 
   generateOffsetString(offset: number) {
