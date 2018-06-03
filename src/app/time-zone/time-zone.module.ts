@@ -5,11 +5,16 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { InputTimeFormComponent } from "./input-time-form/input-time-form.component";
 import { UtcDropdownComponent } from "./utc-dropdown/utc-dropdown.component";
+import { InputThemeComponent } from "./input-theme/input-theme.component";
 
 @NgModule({
   imports: [CommonModule, HttpClientModule, FormsModule, NgbModule],
-  declarations: [InputTimeFormComponent, UtcDropdownComponent],
-  entryComponents: [InputTimeFormComponent],
-  exports: [InputTimeFormComponent]
+  declarations: [
+    InputTimeFormComponent,
+    UtcDropdownComponent,
+    InputThemeComponent
+  ],
+  entryComponents: [InputTimeFormComponent, InputThemeComponent],
+  exports: [InputTimeFormComponent, InputThemeComponent]
 })
 export class TimeZoneModule {}

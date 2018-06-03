@@ -2,7 +2,7 @@
   <form class="border" #timezoneForm="ngForm" novalidate (ngSubmit)="onSubmit($event)">
     <div class="form-group border border-primary utc-container">
       <utc-dropdown [labelName]="'From Time Zone:'" [timeZones]="fromTimeZones"
-        [(timeZone)]="fromTimeZone" #fromUTC></utc-dropdown>
+        [(timeZone)]="fromTimeZone" [theme]="theme" #fromUTC></utc-dropdown>
     </div>
     <div class="form-group border border-primary">
       <label for="myTime" class="col-12 col-sm-3 col-md-3 col-lg-2">From Time: </label>
@@ -13,7 +13,7 @@
     </div>
     <div class="form-group border border-primary utc-container">
       <utc-dropdown [labelName]="'To Time Zone:'" [timeZones]="toTimeZones"
-        [(timeZone)]="toTimeZone" #toUTC></utc-dropdown>
+        [(timeZone)]="toTimeZone" [theme]="theme"  #toUTC></utc-dropdown>
     </div>
     <hr>
     <div class="button-container">
