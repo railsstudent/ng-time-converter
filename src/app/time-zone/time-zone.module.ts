@@ -14,7 +14,7 @@ import { InputThemeComponent } from "./input-theme/input-theme.component";
     UtcDropdownComponent,
     InputThemeComponent
   ],
-  entryComponents: [InputTimeFormComponent, InputThemeComponent],
-  exports: [InputTimeFormComponent, InputThemeComponent]
+  entryComponents: [InputTimeFormComponent],
+  exports: [InputTimeFormComponent]
 })
 export class TimeZoneModule {}

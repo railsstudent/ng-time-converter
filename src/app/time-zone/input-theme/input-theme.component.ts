@@ -6,7 +6,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from "@angular/core";
   styleUrls: ["./input-theme.component.scss"]
 })
 export class InputThemeComponent implements OnInit {
-  themes = ["blue", "green", "rebeccapurple"];
+  themes = ["blue", "green", "rebeccapurple", "red", "firebrick"];
 
   @Input() theme: string;
   @Output()
