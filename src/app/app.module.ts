@@ -5,11 +5,11 @@ import { HttpClientModule } from "@angular/common/http";
 import { createCustomElement } from "@angular/elements";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { AppComponent } from "./app.component";
+// import { AppComponent } from "./app.component";
 import { InputTimeFormComponent, TimeZoneModule } from "./time-zone/";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [],
   imports: [
     BrowserModule,
     FormsModule,
