@@ -3,42 +3,6 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "elements": {
-      "root": "",
-      "sourceRoot": "src",
-      "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/elements-build",
-            "index": "src/index.html",
-            "main": "src/main.element.ts",
-            "polyfills": "src/polyfills.element.ts",
-            "tsConfig": "src/tsconfig.app.json",
-            "scripts": [
-              {
-                "input":
-                  "node_modules/document-register-element/build/document-register-element.js"
-              }
-            ]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "outputHashing": "none",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": false,
-              "vendorChunk": false,
-              "buildOptimizer": true
-            }
-          }
-        }
-      }
-    },
     "ng-time-converter": {
       "root": "",
       "sourceRoot": "src",

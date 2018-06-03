@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:elements": "ng build elements --prod && node build-element.js",
+    "build:elements":
+      "ng build --prod --output-hashing=none && node build-element.js",
     "deploy":
       "ng build --prod --base-href \"https://railsstudent.github.io/ng-time-converter/\" && ngh --no-silent",
     "stats":
