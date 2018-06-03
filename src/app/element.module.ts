@@ -29,10 +29,6 @@ export class ElementModule {
     const timeConverterElement = createCustomElement(InputTimeFormComponent, {
       injector: this.injector
     });
-    const timeThemeElement = createCustomElement(InputThemeComponent, {
-      injector: this.injector
-    });
     customElements.define("time-converter", timeConverterElement);
-    customElements.define("time-theme", timeThemeElement);
   }
 }
