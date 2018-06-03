@@ -5,22 +5,24 @@
   <title>Angular Custom Element Time Converter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <time-theme id="theme"></time-theme>
   <time-converter id="converter"></time-converter>
   <div id="customData"></div>
   <script src="time-converter.js" type="text/javascript"></script>
 <script>
 var converter = document.getElementById("converter");
+var theme = document.getElementById("theme");
 var customData = document.getElementById("customData");
+
+converter.theme = "rebeccapurple";
 function getUTCString(prefix, timeZone) {
   return `<p>${prefix} name: ${timeZone.utc}, ${prefix} offset: ${
     timeZone.offset
   }</p>`;
 }
 converter.addEventListener("submitPerformed", function(e) {
-  console.log(e.detail);
   const { fromTimeZone, toTimeZone, convertedTime } = e.detail;
   const output = `<p>Custom event fired.</p>${getUTCString(
     "From Time Zone",
@@ -30,6 +32,10 @@ converter.addEventListener("submitPerformed", function(e) {
     toTimeZone
   )}<p>Converted Time: ${convertedTime}</p>`;
   customData.innerHTML = output;
+});
+
+theme.addEventListener("themeChange", function(e) {
+  converter.theme = e.detail;
 });
 </script>
 </body>

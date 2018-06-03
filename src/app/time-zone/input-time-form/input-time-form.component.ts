@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
   ViewEncapsulation,
+  Input,
   Output,
   EventEmitter,
   AfterViewInit,
@@ -26,6 +27,7 @@ import * as momentTimezone from "moment-timezone";
 })
 export class InputTimeFormComponent implements OnInit, AfterViewInit {
   @Output() submitPerformed = new EventEmitter<SubmittedData>();
+  @Input() theme: string;
 
   time: TimeInfo;
   fromTimeZones: UtcInfo[];

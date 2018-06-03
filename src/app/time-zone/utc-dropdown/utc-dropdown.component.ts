@@ -19,6 +19,7 @@ import { UtcInfo, TimeInfo } from "../shared/index";
 })
 export class UtcDropdownComponent {
   @Input() labelName: string;
+  @Input() theme: string;
   @Output() timeZoneChange = new EventEmitter<UtcInfo>();
 
   offsets: number[];
@@ -57,7 +58,7 @@ export class UtcDropdownComponent {
       color: sameOffset ? "white" : "black"
     };
     if (sameOffset) {
-      styles["background-color"] = "rebeccapurple";
+      styles["background-color"] = this.theme;
     }
     return styles;
   }

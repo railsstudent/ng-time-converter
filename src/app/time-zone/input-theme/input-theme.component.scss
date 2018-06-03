@@ -1,0 +1,10 @@
+$icon-font-path: "../../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+@import "~bootstrap/scss/bootstrap";
+
+#theme-container {
+  padding: 10px;
+
+  button {
+    margin: 5px;
+  }
+}

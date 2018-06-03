@@ -2,19 +2,19 @@ const fs = require("fs-extra");
 const concat = require("concat");
 (async function build() {
   const files = [
-    "./dist/ng-time-converter/runtime.js",
-    "./dist/ng-time-converter/polyfills.js",
-    "./dist/ng-time-converter/scripts.js",
-    "./dist/ng-time-converter/main.js"
+    "./dist/elements-build/runtime.js",
+    "./dist/elements-build/polyfills.js",
+    "./dist/elements-build/scripts.js",
+    "./dist/elements-build/main.js"
   ];
   await fs.ensureDir("elements");
   await fs.emptyDir("elements");
   await concat(files, "elements/time-converter.js");
-  await fs.copyFile(
-    "./dist/ng-time-converter/styles.css",
-    "elements/styles.css"
+  await fs.copy(
+    "./src/assets/timezones.json",
+    "elements/assets/timezones.json"
   );
-  await fs.copy("./dist/ng-time-converter/assets/", "elements/assets/");
+  await fs.copyFile("./src/favicon.ico", "elements/favicon.ico");
   await fs.copyFile("./src/demo.html", "elements/index.html");
   await fs.copyFile("CNAME", "elements/CNAME");
 })();
