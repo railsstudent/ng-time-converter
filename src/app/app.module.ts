@@ -1,20 +1,38 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, Injector } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { createCustomElement } from "@angular/elements";
+
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { AppComponent } from "./app.component";
-import { ElementModule } from "./element.module";
+import {
+  InputTimeFormComponent,
+  TimeZoneModule,
+  InputThemeComponent
+} from "./time-zone/";
 
 @NgModule({
-  declarations: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    ElementModule
+    TimeZoneModule
   ],
-  bootstrap: [AppComponent]
+  exports: [TimeZoneModule]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private injector: Injector) {}
+
+  ngDoBootstrap() {
+    console.log("AppModule ngDoBootstrap");
+    const timeConverterElement = createCustomElement(InputTimeFormComponent, {
+      injector: this.injector
+    });
+    const timeThemeElement = createCustomElement(InputThemeComponent, {
+      injector: this.injector
+    });
+    customElements.define("time-converter", timeConverterElement);
+    customElements.define("time-theme", timeThemeElement);
+  }
+}

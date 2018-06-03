@@ -9,6 +9,15 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <app-root></app-root>
+  <time-theme id="theme"></time-theme>
+  <time-converter id="converter"></time-converter>
+<script>
+var converter = document.getElementById("converter");
+var theme = document.getElementById("theme");
+
+theme.addEventListener("themeChange", function(e) {
+  converter.theme = e.detail;
+});
+</script>
 </body>
 </html>

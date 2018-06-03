@@ -1,5 +1,4 @@
 <div id="time-form" class="container-fluid" >
-  <time-theme [(theme)]="theme"></time-theme>
   <form class="border" #timezoneForm="ngForm" novalidate (ngSubmit)="onSubmit($event)">
     <div class="form-group border border-primary utc-container">
       <utc-dropdown [labelName]="'From Time Zone:'" [timeZones]="fromTimeZones"
