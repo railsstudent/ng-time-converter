@@ -1,4 +1,5 @@
 <div id="theme-container" class="container-fluid">
   <label>Select theme:</label>
-  <button type="button" class="btn btn-info" *ngFor="let theme of themes" (click)="setTheme(theme)">{{theme}}</button>
+  <button type="button" class="btn btn-info" *ngFor="let t of themes"
+    (click)="setTheme(t)" [class.active]="theme === t">{{t}}</button>
 </div>
