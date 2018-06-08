@@ -18,8 +18,7 @@ import {
     HttpClientModule,
     NgbModule.forRoot(),
     TimeZoneModule
-  ],
-  exports: [TimeZoneModule]
+  ]
 })
 export class AppModule {
   constructor(private injector: Injector) {}

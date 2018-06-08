@@ -4,8 +4,10 @@ import {
   ChangeDetectionStrategy,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  forwardRef
 } from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Observable } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { map as lodashMap, merge, uniqBy, get } from "lodash-es";
@@ -15,25 +17,34 @@ import { UtcInfo, TimeInfo } from "../shared/index";
   selector: "utc-dropdown",
   templateUrl: "./utc-dropdown.component.html",
   styleUrls: ["./utc-dropdown.component.scss"],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => UtcDropdownComponent),
+      multi: true
+    }
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UtcDropdownComponent {
+export class UtcDropdownComponent implements ControlValueAccessor {
   @Input() labelName: string;
   @Input() theme: string;
   @Output() timeZoneChange = new EventEmitter<UtcInfo>();
 
   offsets: number[];
   allTimezones: UtcInfo[];
-  selectedOffset: UtcInfo;
+  _timeZone: UtcInfo;
+  onChange = (_: any) => {};
 
   @Input()
   get timeZone(): UtcInfo {
-    return this.selectedOffset;
+    return this._timeZone;
   }
 
   set timeZone(value: UtcInfo) {
-    this.selectedOffset = value;
+    this._timeZone = value;
     this.timeZoneChange.emit(value);
+    this.onChange(this._timeZone);
   }
 
   @Input()
@@ -52,8 +63,7 @@ export class UtcDropdownComponent {
   }
 
   setStyles(offset) {
-    const sameOffset =
-      this.selectedOffset && this.selectedOffset.offset === offset;
+    const sameOffset = this._timeZone && this._timeZone.offset === offset;
     const styles = {
       color: sameOffset ? "white" : "black"
     };
@@ -82,14 +92,15 @@ export class UtcDropdownComponent {
 
   utcFormatter = (tz: UtcInfo) => `${tz.description} ${tz.utc}`;
 
-  isValid(): boolean {
-    if (!this.selectedOffset) {
-      return false;
+  writeValue(value: UtcInfo) {
+    if (value) {
+      this.timeZone = value;
     }
-    const description = get(this.selectedOffset, "description", null);
-    const offset = get(this.selectedOffset, "offset", null);
-    const utc = get(this.selectedOffset, "utc", null);
-
-    return description != null && offset != null && utc !== "";
   }
+
+  registerOnChange(fn: any) {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any) {}
 }

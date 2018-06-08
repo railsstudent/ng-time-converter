@@ -13,8 +13,5 @@
     <label for="myTimeZone" class="col-12 col-sm-3 col-md-3 col-lg-2">{{labelName}}</label>
     <input class="form-control col-12 col-sm-8 col-md-8 col-lg-9 inline" name="myTimeZone" id="myTimeZone" type="text" required
       [(ngModel)]="timeZone" [ngbTypeahead]="search" [resultFormatter]="utcFormatter" [inputFormatter]="utcFormatter" #myTimeZone="ngModel" />
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-danger" [hidden]="myTimeZone.valid || myTimeZone.pristine">
-        Time Zone is required.
-    </div>
   </div>
 </ng-container>
