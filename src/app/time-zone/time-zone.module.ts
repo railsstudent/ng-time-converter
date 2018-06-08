@@ -13,7 +13,7 @@ import { UtcValidator } from "./validators/utc.validator";
   declarations: [
     InputTimeFormComponent,
     UtcDropdownComponent,
-    InputThemeComponent
+    InputThemeComponent,
     UtcValidator
   ],
   entryComponents: [InputTimeFormComponent, InputThemeComponent],
