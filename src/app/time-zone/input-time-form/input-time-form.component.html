@@ -1,8 +1,11 @@
 <div id="time-form" class="container-fluid" >
   <form class="border" #timezoneForm="ngForm" novalidate (ngSubmit)="onSubmit($event)">
     <div class="form-group border border-primary utc-container">
-      <utc-dropdown [labelName]="'From Time Zone:'" [timeZones]="fromTimeZones"
-        [(timeZone)]="fromTimeZone" [theme]="theme" #fromUTC></utc-dropdown>
+      <utc-dropdown name="fromUTC" [labelName]="'From Time Zone:'" [timeZones]="fromTimeZones"
+          [(ngModel)]="fromTimeZone" [theme]="theme" timezone #fromUTC="ngModel"></utc-dropdown>
+      <div class="col-12 text-danger" *ngIf="fromUTC.invalid && fromUTC.errors.timezone?.invalid">
+          From Time Zone is required.
+      </div>
     </div>
     <div class="form-group border border-primary">
       <label for="myTime" class="col-12 col-sm-3 col-md-3 col-lg-2">From Time: </label>
@@ -12,12 +15,15 @@
       </div>
     </div>
     <div class="form-group border border-primary utc-container">
-      <utc-dropdown [labelName]="'To Time Zone:'" [timeZones]="toTimeZones"
-        [(timeZone)]="toTimeZone" [theme]="theme"  #toUTC></utc-dropdown>
+      <utc-dropdown name="toUTC" [labelName]="'To Time Zone:'" [timeZones]="toTimeZones"
+        [(ngModel)]="toTimeZone" [theme]="theme" timezone  #toUTC="ngModel"></utc-dropdown>
+      <div class="col-12 text-danger" *ngIf="toUTC.invalid && toUTC.errors.timezone?.invalid">
+          To Time Zone is required.
+      </div>
     </div>
     <hr>
     <div class="button-container">
-      <button type="submit" class="btn btn-primary" [disabled]="timezoneForm.form.invalid || !fromUTC.isValid() || !toUTC.isValid()">Submit</button>
+      <button type="submit" class="btn btn-primary" [disabled]="timezoneForm.form.invalid">Submit</button>
     </div>
   </form>
   <br />
@@ -25,7 +31,8 @@
     <label for="myTime" class="col-4">To Time: </label>
     <p id="myTime" name="myTime" class="col-8">{{convertedTime}}</p>
   </div>
-  <!-- <pre>Selected time: {{time | json}}</pre>
-  <pre>Selected from timezone: {{fromTimeZone | json}}</pre>
-  <pre>Selected to timezone: {{toTimeZone | json}}</pre> -->
+  <!-- <pre>{{
+      timezoneForm.value | json
+    }}
+  </pre> -->
 </div>
