@@ -3,8 +3,13 @@
     <div class="form-group border border-primary utc-container">
       <utc-dropdown name="fromUTC" [labelName]="'From Time Zone:'" [timeZones]="fromTimeZones"
           [(ngModel)]="fromTimeZone" [theme]="theme" timezone #fromUTC="ngModel"></utc-dropdown>
-      <div class="col-12 text-danger" *ngIf="fromUTC.invalid && fromUTC.errors.timezone?.invalid">
-          From Time Zone is required.
+      <div class="col-12 text-danger" *ngIf="fromUTC.invalid && fromUTC.errors.timezone">
+          <p *ngIf="fromUTC.errors.timezone.required && fromUTC.errors.timezone.required === true">
+            From Time Zone is required.
+          </p>
+          <p *ngIf="fromUTC.errors.timezone.invalid && fromUTC.errors.timezone.invalid === true">
+            From Time Zone is invalid.
+          </p>
       </div>
     </div>
     <div class="form-group border border-primary">
@@ -17,8 +22,13 @@
     <div class="form-group border border-primary utc-container">
       <utc-dropdown name="toUTC" [labelName]="'To Time Zone:'" [timeZones]="toTimeZones"
         [(ngModel)]="toTimeZone" [theme]="theme" timezone  #toUTC="ngModel"></utc-dropdown>
-      <div class="col-12 text-danger" *ngIf="toUTC.invalid && toUTC.errors.timezone?.invalid">
-          To Time Zone is required.
+      <div class="col-12 text-danger" *ngIf="toUTC.invalid && toUTC.errors.timezone">
+          <p *ngIf="toUTC.errors.timezone.required && toUTC.errors.timezone.required === true">
+            To Time Zone is required.
+          </p>
+          <p *ngIf="toUTC.errors.timezone.invalid && toUTC.errors.timezone.invalid === true">
+            To Time Zone is invalid.
+          </p>
       </div>
     </div>
     <hr>
