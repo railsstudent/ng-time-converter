@@ -17,6 +17,6 @@ import { UtcValidator } from "./validators/utc.validator";
     UtcValidator
   ],
   entryComponents: [InputTimeFormComponent, InputThemeComponent],
-  exports: [InputTimeFormComponent, InputThemeComponent, UtcValidator]
+  exports: [InputTimeFormComponent, InputThemeComponent]
 })
 export class TimeZoneModule {}
