@@ -11,7 +11,7 @@ if (environment.production) {
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .then(() => {
-    const converter = document.getElementById("converter");
-    converter.setAttribute("theme", "rebeccapurple");
+    const themeChooser = document.getElementsByTagName("time-theme")[0];
+    themeChooser.setAttribute("theme", "goldenrod");
   })
   .catch(err => console.log(err));

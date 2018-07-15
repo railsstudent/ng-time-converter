@@ -14,14 +14,18 @@ import {
 })
 export class InputThemeComponent {
   themes = ["blue", "green", "rebeccapurple", "red", "firebrick", "goldenrod"];
-
-  @Input() theme: string;
+  _theme: string;
+  
   @Output()
   public themeChange: EventEmitter<string> = new EventEmitter<string>();
 
-  setTheme(color) {
-    console.log("setTheme", color);
-    this.theme = color;
+  @Input()
+  get theme() {
+    return this._theme;
+  }
+
+  set theme(color) {
+    this._theme = color;
     this.themeChange.emit(color);
   }
 }
