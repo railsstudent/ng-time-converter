@@ -11,7 +11,11 @@ if (environment.production) {
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .then(() => {
+    const color = 'goldenrod';
     const themeChooser = document.getElementsByTagName("time-theme")[0];
-    themeChooser.setAttribute("theme", "goldenrod");
+    themeChooser.setAttribute("theme", color);
+
+    const converter = document.getElementsByTagName("time-converter")[0];
+    converter.setAttribute("theme", color);
   })
   .catch(err => console.log(err));
