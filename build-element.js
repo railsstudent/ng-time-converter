@@ -4,7 +4,6 @@ const concat = require("concat");
   const files = [
     "./dist/ng-time-converter/runtime.js",
     "./dist/ng-time-converter/polyfills.js",
-    "./dist/ng-time-converter/scripts.js",
     "./dist/ng-time-converter/main.js"
   ];
   await fs.ensureDir("elements");
