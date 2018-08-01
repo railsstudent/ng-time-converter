@@ -10,7 +10,7 @@ import {
   selector: "time-theme",
   templateUrl: "./input-theme.component.html",
   styleUrls: ["./input-theme.component.scss"],
-  encapsulation: ViewEncapsulation.Native
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class InputThemeComponent {
   themes = ["blue", "green", "rebeccapurple", "red", "firebrick", "goldenrod"];

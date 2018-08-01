@@ -23,7 +23,7 @@ import * as momentTimezone from "moment-timezone";
   selector: "time-converter",
   templateUrl: "./input-time-form.component.html",
   styleUrls: ["./input-time-form.component.scss"],
-  encapsulation: ViewEncapsulation.Native
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class InputTimeFormComponent implements OnInit, AfterViewInit {
   @Output() submitPerformed = new EventEmitter<SubmittedData>();
