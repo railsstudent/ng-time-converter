@@ -25,13 +25,18 @@ export class AppModule {
 
   ngDoBootstrap() {
     console.log("AppModule ngDoBootstrap");
-    const timeConverterElement = createCustomElement(InputTimeFormComponent, {
-      injector: this.injector
-    });
-    const timeThemeElement = createCustomElement(InputThemeComponent, {
-      injector: this.injector
-    });
-    customElements.define("time-converter", timeConverterElement);
-    customElements.define("time-theme", timeThemeElement);
+    try {
+      const timeConverterElement = createCustomElement(InputTimeFormComponent, {
+        injector: this.injector
+      });
+      customElements.define("time-converter", timeConverterElement);
+
+      const timeThemeElement = createCustomElement(InputThemeComponent, {
+        injector: this.injector
+      });
+      customElements.define("time-theme", timeThemeElement);
+    } catch (ex) {
+      console.error(ex);
+    }
   }
 }
